@@ -1,20 +1,51 @@
 <template lang="pug">
   #app
-    img(src="./assets/logo.png")
-    h1 {{msg}}
+    section.section
+      nav.nav.has-shadow
+        .container
+          input.input.is-large(
+            type="text",
+            placeholder="Buscar Canciones",
+            v-model="searchQuery"
+            )
+          a.button.is-info.is-large(@click="search") Buscar
+          a.button.is-danger.is-large &times;
+          p
+            small {{searchMessage}}
+      .container.result
+        .columns
+          .column(v-for="t in tracks") {{t.name}} - {{t.artist}}
 </template>
-
 <script>
+const tracks = [
+  { name: 'Muchacha', artist: 'Luis Alberto Spinetta' },
+  { name: 'Hoy aca en el baile', artist: 'El Pepo' },
+  { name: 'I was made for loving you', artist: 'Kiss' }
+]
 export default {
   name: 'app',
   data () {
     return {
-      msg: 'Mi hola mundo en vue.js'
+      searchQuery: '',
+      tracks: []
+    }
+  },
+  methods: {
+    search () {
+      this.tracks = tracks
+    }
+  },
+  computed: {
+    searchMessage () {
+      return `Encontrados: ${this.tracks.length}`
     }
   }
 }
 </script>
 
 <style lang="scss">
-  @import './scss/main.scss'
+  @import './scss/main.scss';
+  .result {
+    margin-top: 50px;
+  }
 </style>
