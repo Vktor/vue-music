@@ -1,4 +1,4 @@
 const configService = {
-  apiUrl: 'http://vue-music.now.sh'
+  apiUrl: 'https://platzi-music-api.now.sh'
 }
 export default configService

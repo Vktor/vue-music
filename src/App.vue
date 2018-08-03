@@ -2,7 +2,7 @@
   #app
     section.section
       nav.nav.has-shadow
-        .container
+        .container 
           input.input.is-large(
             type="text",
             placeholder="Buscar Canciones",
@@ -17,11 +17,8 @@
           .column(v-for="t in tracks") {{t.name}} - {{t.artist}}
 </template>
 <script>
-const tracks = [
-  { name: 'Muchacha', artist: 'Luis Alberto Spinetta' },
-  { name: 'Hoy aca en el baile', artist: 'El Pepo' },
-  { name: 'I was made for loving you', artist: 'Kiss' }
-]
+import trackService from './services/track.js'
+
 export default {
   name: 'app',
   data () {
@@ -32,7 +29,10 @@ export default {
   },
   methods: {
     search () {
-      this.tracks = tracks
+      trackService.search(this.searchQuery)
+        .then(res => {
+          console.log(res)
+        })
     }
   },
   computed: {
