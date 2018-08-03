@@ -10,11 +10,13 @@
             )
           a.button.is-info.is-large(@click="search") Buscar
           a.button.is-danger.is-large &times;
-          p
-            small {{searchMessage}}
+      .container
+        p
+          small {{searchMessage}}
       .container.result
         .columns
-          .column(v-for="t in tracks") {{t.name}} - {{t.artist}}
+          .column(v-for="t in tracks")
+            | {{t.name}} - {{t.artists[0].name}}
 </template>
 <script>
 import trackService from './services/track.js'
@@ -29,9 +31,10 @@ export default {
   },
   methods: {
     search () {
+      if(!this.searchQuery){ return }
       trackService.search(this.searchQuery)
         .then(res => {
-          console.log(res)
+          this.tracks = res.tracks.items
         })
     }
   },
